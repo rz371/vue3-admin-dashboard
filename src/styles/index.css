@@ -1,0 +1,275 @@
+@import 'normalize.css';
+@import './variables.css';
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  width: 100%;
+  min-width: 320px;
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  color: var(--text-primary);
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
+  background: var(--page-bg);
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+.login-page {
+  display: grid;
+  min-height: 100vh;
+  padding: 32px;
+  place-items: center;
+  background:
+    linear-gradient(135deg, rgba(20, 120, 125, 0.16), transparent 40%),
+    linear-gradient(315deg, rgba(64, 158, 255, 0.18), transparent 42%),
+    #f5f7fb;
+}
+
+.login-page__panel {
+  display: grid;
+  width: min(920px, 100%);
+  min-height: 480px;
+  overflow: hidden;
+  grid-template-columns: 1fr 380px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 20px 60px rgba(30, 42, 64, 0.12);
+}
+
+.login-page__intro {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 56px;
+  color: #fff;
+  background:
+    linear-gradient(rgba(16, 58, 73, 0.72), rgba(16, 58, 73, 0.72)),
+    url('https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=1200&q=80')
+      center/cover;
+}
+
+.login-page__intro h1 {
+  margin: 0 0 16px;
+  font-size: 44px;
+  line-height: 1.1;
+}
+
+.login-page__intro p {
+  max-width: 420px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.login-page__form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px;
+}
+
+.login-page__form h2 {
+  margin: 0 0 28px;
+  font-size: 28px;
+}
+
+.login-page__submit {
+  width: 100%;
+}
+
+.admin-layout {
+  min-height: 100vh;
+}
+
+.admin-layout__aside {
+  color: #dbe7ef;
+  background: #17212b;
+  transition: width 0.2s ease;
+}
+
+.admin-layout__brand {
+  display: flex;
+  height: 56px;
+  align-items: center;
+  gap: 10px;
+  padding: 0 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.admin-layout__brand-mark {
+  display: inline-grid;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
+  place-items: center;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 700;
+  background: #2f9e8f;
+}
+
+.admin-layout__brand-name {
+  overflow: hidden;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.admin-layout__menu {
+  border-right: 0;
+  background: transparent;
+}
+
+.admin-layout__menu.el-menu {
+  --el-menu-bg-color: #17212b;
+  --el-menu-text-color: #b7c6d2;
+  --el-menu-hover-bg-color: #223140;
+  --el-menu-active-color: #6ee7cf;
+}
+
+.admin-layout__header {
+  display: flex;
+  height: 56px;
+  align-items: center;
+  gap: 16px;
+  border-bottom: 1px solid var(--border-color);
+  background: #fff;
+}
+
+.admin-layout__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+
+.admin-layout__user {
+  color: var(--text-regular);
+}
+
+.admin-layout__tabs {
+  display: flex;
+  height: 40px;
+  align-items: center;
+  padding: 0 20px;
+  border-bottom: 1px solid var(--border-color);
+  background: #fff;
+}
+
+.admin-layout__main {
+  background: var(--page-bg);
+}
+
+.dashboard-view {
+  display: grid;
+  gap: 20px;
+}
+
+.dashboard-view__heading h1 {
+  margin: 0 0 8px;
+  font-size: 26px;
+}
+
+.dashboard-view__heading p {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.dashboard-view__stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.dashboard-view__card,
+.dashboard-view__section {
+  border-radius: 8px;
+}
+
+.dashboard-view__stat {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.dashboard-view__stat .el-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  color: #14787d;
+  font-size: 22px;
+  background: #e6f4f3;
+}
+
+.dashboard-view__stat span {
+  display: block;
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+
+.dashboard-view__stat strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 24px;
+}
+
+@media (max-width: 860px) {
+  .login-page {
+    padding: 20px;
+  }
+
+  .login-page__panel {
+    grid-template-columns: 1fr;
+  }
+
+  .login-page__intro {
+    min-height: 220px;
+    padding: 32px;
+  }
+
+  .login-page__intro h1 {
+    font-size: 34px;
+  }
+
+  .dashboard-view__stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .admin-layout__aside {
+    display: none;
+  }
+
+  .admin-layout__header {
+    padding: 0 12px;
+  }
+
+  .admin-layout__user {
+    display: none;
+  }
+
+  .dashboard-view__stats {
+    grid-template-columns: 1fr;
+  }
+}
