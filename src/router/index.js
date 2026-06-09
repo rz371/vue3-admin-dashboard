@@ -14,8 +14,11 @@ const routes = [
   },
   {
     path: '/',
+    // 自动加载 AdminLayout 布局，
     component: () => import('@/layouts/AdminLayout.vue'),
+    // 自动重定向到 dashboard
     redirect: '/dashboard',
+    // 子页面会渲染到 AdminLayout 的 <router-view> 中
     children: [
       {
         path: 'dashboard',

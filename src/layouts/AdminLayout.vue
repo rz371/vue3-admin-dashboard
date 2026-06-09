@@ -23,18 +23,15 @@ function handleLogout() {
   <el-container class="admin-layout">
     <el-aside :width="appStore.sidebarCollapsed ? '64px' : '220px'" class="admin-layout__aside">
       <div class="admin-layout__brand">
-        <span class="admin-layout__brand-mark">A</span>
-        <span v-if="!appStore.sidebarCollapsed" class="admin-layout__brand-name">Admin System</span>
+        <span class="admin-layout__brand-mark">S</span>
+        <span v-if="!appStore.sidebarCollapsed" class="admin-layout__brand-name">智能运营管理平台</span>
       </div>
 
-      <el-menu
-        router
-        :default-active="activeMenu"
-        :collapse="appStore.sidebarCollapsed"
-        class="admin-layout__menu"
-      >
+      <el-menu router :default-active="activeMenu" :collapse="appStore.sidebarCollapsed" class="admin-layout__menu">
         <el-menu-item index="/dashboard">
-          <el-icon><House /></el-icon>
+          <el-icon>
+            <House />
+          </el-icon>
           <template #title>工作台</template>
         </el-menu-item>
       </el-menu>

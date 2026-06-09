@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 
+// 定义一个名称为 app的 Store 叫 useAppStore
 export const useAppStore = defineStore('app', {
   state: () => ({
     sidebarCollapsed: false,
