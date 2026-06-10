@@ -1,7 +1,17 @@
 <script setup>
-import { computed, onMounted } from 'vue'
+import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { Expand, Fold, House, SwitchButton } from '@element-plus/icons-vue'
+import {
+  Avatar,
+  Document,
+  Expand,
+  Fold,
+  House,
+  List,
+  Setting,
+  SwitchButton,
+  User
+} from '@element-plus/icons-vue'
 
 import { useAppStore } from '@/stores/app'
 import { useUserStore } from '@/stores/user'
@@ -12,17 +22,47 @@ const appStore = useAppStore()
 const userStore = useUserStore()
 
 const activeMenu = computed(() => route.path)
+const iconMap = {
+  Avatar,
+  Document,
+  House,
+  List,
+  Setting,
+  User
+}
 
+function normalizePath(parentPath, path) {
+  if (path.startsWith('/')) return path
+  if (!parentPath || parentPath === '/') return `/${path}`
+  return `${parentPath}/${path}`
+}
 
-const routersList = computed(() => router.options.routes.filter(a => a.isPublic)).value[0].children.filter(b => b.meta?.isPublic)
+function formatMenuRoutes(routes, parentPath = '') {
+  return routes
+    .filter(item => item.meta?.isPublic)
+    .map((item) => {
+      const fullPath = normalizePath(parentPath, item.path)
+      return {
+        ...item,
+        fullPath,
+        children: item.children ? formatMenuRoutes(item.children, fullPath) : []
+      }
+    })
+}
+
+const routersList = computed(() => {
+  const layoutRoute = router.options.routes.find(item => item.isPublic)
+  return layoutRoute?.children ? formatMenuRoutes(layoutRoute.children) : []
+})
+
+function getMenuIcon(icon) {
+  return iconMap[icon] || House
+}
+
 function handleLogout() {
   userStore.logout()
   router.replace('/login')
 }
-
-onMounted(() => {
-  console.log('立马加载', routersList)
-})
 </script>
 
 <template>
@@ -33,13 +73,36 @@ onMounted(() => {
         <span v-if="!appStore.sidebarCollapsed" class="admin-layout__brand-name">智能运营管理平台</span>
       </div>
 
-      <el-menu router :default-active="activeMenu" :collapse="appStore.sidebarCollapsed" class="admin-layout__menu">
-        <el-menu-item v-for="item in routersList" :key="item.path" :index="item.path">
-          <el-icon>
-            <House />
-          </el-icon>
-          <template #title>{{ item.meta?.title || item.path }}</template>
-        </el-menu-item>
+      <el-menu
+        router
+        :default-active="activeMenu"
+        :collapse="appStore.sidebarCollapsed"
+        class="admin-layout__menu"
+      >
+        <template v-for="item in routersList" :key="item.fullPath">
+          <el-sub-menu v-if="item.children?.length" :index="item.fullPath">
+            <template #title>
+              <el-icon>
+                <component :is="getMenuIcon(item.meta?.icon)" />
+              </el-icon>
+              <span>{{ item.meta?.title || item.path }}</span>
+            </template>
+
+            <el-menu-item v-for="child in item.children" :key="child.fullPath" :index="child.fullPath">
+              <el-icon>
+                <component :is="getMenuIcon(child.meta?.icon)" />
+              </el-icon>
+              <template #title>{{ child.meta?.title || child.path }}</template>
+            </el-menu-item>
+          </el-sub-menu>
+
+          <el-menu-item v-else :index="item.fullPath">
+            <el-icon>
+              <component :is="getMenuIcon(item.meta?.icon)" />
+            </el-icon>
+            <template #title>{{ item.meta?.title || item.path }}</template>
+          </el-menu-item>
+        </template>
       </el-menu>
     </el-aside>
 

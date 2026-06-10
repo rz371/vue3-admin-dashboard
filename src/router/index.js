@@ -27,8 +27,62 @@ const routes = [
         component: () => import('@/views/dashboard/DashboardView.vue'),
         meta: {
           title: '首页',
+          icon: 'House',
           isPublic: true
         }
+      },
+      {
+        path: 'system',
+        name: 'System',
+        component: () => import('@/layouts/BlankLayout.vue'),
+        redirect: '/system/user',
+        meta: {
+          title: '系统管理',
+          icon: 'Setting',
+          isPublic: true
+        },
+        children: [
+          {
+            path: 'user',
+            name: 'User',
+            component: () => import('@/views/systemManaged/UserView.vue'),
+            meta: {
+              title: '用户管理',
+              icon: 'User',
+              isPublic: true
+            }
+          },
+          {
+            path: 'role',
+            name: 'Role',
+            component: () => import('@/views/systemManaged/RoleView.vue'),
+            meta: {
+              title: '角色管理',
+              icon: 'Avatar',
+              isPublic: true
+            }
+          },
+          {
+            path: 'menu',
+            name: 'Menu',
+            component: () => import('@/views/systemManaged/MenuView.vue'),
+            meta: {
+              title: '菜单管理',
+              icon: 'List',
+              isPublic: true
+            }
+          },
+          {
+            path: 'log',
+            name: 'SystemLog',
+            component: () => import('@/views/systemManaged/SystemLogView.vue'),
+            meta: {
+              title: '系统日志',
+              icon: 'Document',
+              isPublic: true
+            }
+          }
+        ]
       },
       {
         path: '403',

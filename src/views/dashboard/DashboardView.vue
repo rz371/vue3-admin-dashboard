@@ -163,8 +163,15 @@ const todoTasks = [
   <section class="dashboard-view">
     <div class="dashboard-view__heading">
       <p>欢迎回来，{{ userStore.profile?.name || 'admin' }}</p>
-      <el-date-picker v-model="datePickerValue" type="daterange" range-separator="To" start-placeholder="开始时间"
-        end-placeholder="结束时间" size="small" style="width:200px" />
+      <el-date-picker
+        v-model="datePickerValue"
+        type="daterange"
+        range-separator="To"
+        start-placeholder="开始时间"
+        end-placeholder="结束时间"
+        size="small"
+        style="width:200px"
+      />
     </div>
 
     <div class="dashboard-view__stats">
