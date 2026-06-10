@@ -18,6 +18,7 @@ const routes = [
     component: () => import('@/layouts/AdminLayout.vue'),
     // 自动重定向到 dashboard
     redirect: '/dashboard',
+    isPublic: true, // 显示在左侧
     // 子页面会渲染到 AdminLayout 的 <router-view> 中
     children: [
       {
@@ -25,7 +26,8 @@ const routes = [
         name: 'Dashboard',
         component: () => import('@/views/dashboard/DashboardView.vue'),
         meta: {
-          title: '工作台'
+          title: '首页',
+          isPublic: true
         }
       },
       {

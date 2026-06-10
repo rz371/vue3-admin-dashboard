@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { Expand, Fold, House, SwitchButton } from '@element-plus/icons-vue'
 
@@ -13,10 +13,16 @@ const userStore = useUserStore()
 
 const activeMenu = computed(() => route.path)
 
+
+const routersList = computed(() => router.options.routes.filter(a => a.isPublic)).value[0].children.filter(b => b.meta?.isPublic)
 function handleLogout() {
   userStore.logout()
   router.replace('/login')
 }
+
+onMounted(() => {
+  console.log('立马加载', routersList)
+})
 </script>
 
 <template>
@@ -28,11 +34,11 @@ function handleLogout() {
       </div>
 
       <el-menu router :default-active="activeMenu" :collapse="appStore.sidebarCollapsed" class="admin-layout__menu">
-        <el-menu-item index="/dashboard">
+        <el-menu-item v-for="item in routersList" :key="item.path" :index="item.path">
           <el-icon>
             <House />
           </el-icon>
-          <template #title>工作台</template>
+          <template #title>{{ item.meta?.title || item.path }}</template>
         </el-menu-item>
       </el-menu>
     </el-aside>
