@@ -1,7 +1,7 @@
 <script setup>
 import { reactive, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-// import { Lock, User } from '@element-plus/icons-vue'
+import { Lock, User } from '@element-plus/icons-vue'
 
 import { useUserStore } from '@/stores/user'
 
