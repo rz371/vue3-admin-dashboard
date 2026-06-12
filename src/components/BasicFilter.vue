@@ -1,51 +1,28 @@
 <template>
-  <el-form :model="model" class="basic-filter">
+  <el-form :model="model" class="basic-filter" :class="{ 'basic-filter--compact': compact }">
     <div class="basic-filter__fields">
-      <el-form-item
-        v-for="field in fields"
-        :key="field.prop"
-        :label="field.label"
-        :class="{ 'basic-filter__date': field.type === 'daterange' }"
-      >
+      <el-form-item v-for="field in fields" :key="field.prop" :label="field.label"
+        :class="{ 'basic-filter__date': field.type === 'daterange' }">
         <slot v-if="field.slot" :name="field.slot" :field="field" :model="model" />
 
-        <el-input
-          v-else-if="field.type === 'input'"
-          v-model="model[field.prop]"
-          :placeholder="field.placeholder"
-          :clearable="field.clearable ?? true"
-        />
+        <el-input v-else-if="field.type === 'input'" v-model="model[field.prop]" :placeholder="field.placeholder"
+          :clearable="field.clearable ?? true" />
 
-        <el-select
-          v-else-if="field.type === 'select'"
-          v-model="model[field.prop]"
-          :placeholder="field.placeholder"
-          :clearable="field.clearable ?? true"
-        >
-          <el-option
-            v-for="item in field.options || []"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />
+        <el-select v-else-if="field.type === 'select'" v-model="model[field.prop]" :placeholder="field.placeholder"
+          :clearable="field.clearable ?? true">
+          <el-option v-for="item in field.options || []" :key="item.value" :label="item.label" :value="item.value" />
         </el-select>
 
-        <el-date-picker
-          v-else-if="field.type === 'daterange'"
-          v-model="model[field.prop]"
-          type="daterange"
-          :value-format="field.valueFormat || 'YYYY-MM-DD'"
-          :start-placeholder="field.startPlaceholder || '开始日期'"
-          :end-placeholder="field.endPlaceholder || '结束日期'"
-          :range-separator="field.rangeSeparator || '~'"
-          :clearable="field.clearable ?? true"
-        />
+        <el-date-picker v-else-if="field.type === 'daterange'" v-model="model[field.prop]" type="daterange"
+          :value-format="field.valueFormat || 'YYYY-MM-DD'" :start-placeholder="field.startPlaceholder || '开始日期'"
+          :end-placeholder="field.endPlaceholder || '结束日期'" :range-separator="field.rangeSeparator || '~'"
+          :clearable="field.clearable ?? true" />
       </el-form-item>
     </div>
 
     <div class="basic-filter__actions">
-      <el-button type="primary" :icon="Search" @click="emit('search')">{{ searchText }}</el-button>
-      <el-button :icon="Refresh" @click="emit('reset')">{{ resetText }}</el-button>
+      <el-button v-if="showSearch" type="primary" :icon="Search" @click="emit('search')">{{ searchText }}</el-button>
+      <el-button v-if="showReset" :icon="Refresh" @click="emit('reset')">{{ resetText }}</el-button>
       <el-button v-if="showCreate" type="primary" :icon="Plus" @click="emit('create')">{{ createText }}</el-button>
       <slot name="actions" />
     </div>
@@ -80,6 +57,18 @@ defineProps({
   showCreate: {
     type: Boolean,
     default: true
+  },
+  showSearch: {
+    type: Boolean,
+    default: true
+  },
+  showReset: {
+    type: Boolean,
+    default: true
+  },
+  compact: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -160,8 +149,29 @@ const emit = defineEmits(['search', 'reset', 'create'])
   }
 }
 
+.basic-filter--compact {
+  display: flex;
+  align-items: center;
+  padding: 0;
+
+  .basic-filter__fields {
+    flex-wrap: nowrap;
+    column-gap: 10px;
+  }
+
+  .basic-filter__actions {
+    margin-top: 0;
+    margin-left: auto;
+  }
+
+  :deep(.el-form-item__label) {
+    display: none;
+  }
+}
+
 @media (max-width: 760px) {
   .basic-filter {
+
     :deep(.el-input),
     :deep(.el-select),
     :deep(.el-date-editor) {
@@ -173,6 +183,18 @@ const emit = defineEmits(['search', 'reset', 'create'])
   .basic-filter__actions {
     align-items: stretch;
     flex-direction: column;
+  }
+
+  .basic-filter--compact {
+    flex-wrap: wrap;
+
+    .basic-filter__fields {
+      flex-wrap: wrap;
+    }
+
+    .basic-filter__actions {
+      margin-left: 0;
+    }
   }
 }
 </style>

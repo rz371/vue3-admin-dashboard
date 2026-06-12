@@ -8,26 +8,13 @@
     <div class="role-page__content">
       <div class="role-page__left">
         <div class="role-page__filter">
-          <BasicFilter
-            v-model="formInline"
-            :fields="filterFields"
-            create-text="新增角色"
-            @reset="handleReset"
-          />
+          <BasicFilter v-model="formInline" :fields="filterFields" create-text="新增角色" @reset="handleReset" />
         </div>
 
         <div class="role-page__main">
-          <BasicTable
-            :columns="roleColumns"
-            :table-data="filteredRoleList"
-            :operate-list="roleOperateList"
-            :operate-min-width="170"
-            operate-align="center"
-            row-key="id"
-            highlight-current-row
-            @current-change="handleRoleChange"
-            @operate-click="handleOperate"
-          >
+          <BasicTable :columns="roleColumns" :table-data="filteredRoleList" :operate-list="roleOperateList"
+            :operate-min-width="170" operate-align="center" row-key="id" highlight-current-row
+            @current-change="handleRoleChange" @operate-click="handleOperate">
             <template #role="{ row }">
               <div class="role-cell">
                 <span class="role-cell__icon" :class="`is-${row.roleTheme || 'blue'}`">
@@ -75,15 +62,8 @@
         </div>
 
         <el-scrollbar class="permission-card__body">
-          <el-tree
-            ref="permissionTreeRef"
-            :data="permissionTree"
-            node-key="id"
-            show-checkbox
-            default-expand-all
-            :default-checked-keys="checkedPermissions"
-            :props="treeProps"
-          />
+          <el-tree ref="permissionTreeRef" :data="permissionTree" node-key="id" show-checkbox default-expand-all
+            :default-checked-keys="checkedPermissions" :props="treeProps" />
         </el-scrollbar>
       </aside>
     </div>

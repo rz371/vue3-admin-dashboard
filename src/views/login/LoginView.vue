@@ -1,7 +1,7 @@
 <script setup>
 import { reactive, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { Lock, User } from '@element-plus/icons-vue'
+// import { Lock, User } from '@element-plus/icons-vue'
 
 import { useUserStore } from '@/stores/user'
 
@@ -41,14 +41,8 @@ async function handleLogin() {
           <el-input v-model="form.username" size="large" placeholder="用户名" :prefix-icon="User" />
         </el-form-item>
         <el-form-item>
-          <el-input
-            v-model="form.password"
-            size="large"
-            placeholder="密码"
-            type="password"
-            show-password
-            :prefix-icon="Lock"
-          />
+          <el-input v-model="form.password" size="large" placeholder="密码" type="password" show-password
+            :prefix-icon="Lock" />
         </el-form-item>
         <el-button type="primary" size="large" native-type="submit" :loading="loading" class="login-page__submit">
           登录

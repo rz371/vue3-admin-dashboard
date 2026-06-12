@@ -32,6 +32,59 @@ const routes = [
         }
       },
       {
+        path: 'center',
+        name: 'Center',
+        component: () => import('@/layouts/BlankLayout.vue'),
+        redirect: '/center/report',
+        meta: {
+          title: '数据中心',
+          icon: 'ChartBar',
+          isPublic: true
+        },
+        children: [
+          {
+            path: 'report',
+            name: 'DataReport',
+            component: () => import('@/views/dataCenter/DataReportView.vue'),
+            meta: {
+              title: '数据报表',
+              icon: 'Document',
+              isPublic: true
+            }
+          },
+          // {
+          //   path: 'board',
+          //   name: 'DataBoard',
+          //   component: () => import('@/views/dataCenter/DataBoardView.vue'),
+          //   meta: {
+          //     title: '数据看板',
+          //     icon: 'Layout',
+          //     isPublic: true
+          //   }
+          // },
+          // {
+          //   path: 'analysis',
+          //   name: 'DataAnalysis',
+          //   component: () => import('@/views/dataCenter/DataAnalysisView.vue'),
+          //   meta: {
+          //     title: '数据分析',
+          //     icon: 'TrendingUp',
+          //     isPublic: true
+          //   }
+          // },
+          // {
+          //   path: 'export',
+          //   name: 'DataExport',
+          //   component: () => import('@/views/dataCenter/DataExportView.vue'),
+          //   meta: {
+          //     title: '数据导出',
+          //     icon: 'Download',
+          //     isPublic: true
+          //   }
+          // }
+        ]
+      },
+      {
         path: 'system',
         name: 'System',
         component: () => import('@/layouts/BlankLayout.vue'),
@@ -62,26 +115,26 @@ const routes = [
               isPublic: true
             }
           },
-          {
-            path: 'menu',
-            name: 'Menu',
-            component: () => import('@/views/systemManaged/MenuView.vue'),
-            meta: {
-              title: '菜单管理',
-              icon: 'List',
-              isPublic: true
-            }
-          },
-          {
-            path: 'log',
-            name: 'SystemLog',
-            component: () => import('@/views/systemManaged/SystemLogView.vue'),
-            meta: {
-              title: '系统日志',
-              icon: 'Document',
-              isPublic: true
-            }
-          }
+          // {
+          //   path: 'menu',
+          //   name: 'Menu',
+          //   component: () => import('@/views/systemManaged/MenuView.vue'),
+          //   meta: {
+          //     title: '菜单管理',
+          //     icon: 'List',
+          //     isPublic: true
+          //   }
+          // },
+          // {
+          //   path: 'log',
+          //   name: 'SystemLog',
+          //   component: () => import('@/views/systemManaged/SystemLogView.vue'),
+          //   meta: {
+          //     title: '系统日志',
+          //     icon: 'Document',
+          //     isPublic: true
+          //   }
+          // }
         ]
       },
       {
